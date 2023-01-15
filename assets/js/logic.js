@@ -18,9 +18,9 @@ var score = document.getElementById('final-score');
 // setting variable for end-screen
 var endScreen = document.getElementById('end-screen');
 // setting variable for initials input box
-initialsInput = document.getElementById('initials');
+var initialsInput = document.getElementById('initials');
 // setting variable for submit button
-submitBtn = document.getElementById('submit');
+var submitBtn = document.getElementById('submit');
 
 
 // setting current question to 0

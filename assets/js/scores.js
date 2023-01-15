@@ -3,6 +3,10 @@
 window.onload = function () {
     // get the highscores ordered list
     var ol = document.getElementById("highscores");
+
+    // setting variable for 'clear highscores' button
+    clearScores = document.getElementById("clear");
+
     // create an empty array to store the scores
     var scores = [];
     // loop through the items in local storage
@@ -16,7 +20,7 @@ window.onload = function () {
     }
 
     // sort the scores array by score in descending order
-    scores.sort(function(a, b) {
+    scores.sort(function (a, b) {
         return b.score - a.score;
     });
 
@@ -29,4 +33,10 @@ window.onload = function () {
         // add list item to the highscores ordered list
         ol.appendChild(li);
     }
+
+    clearScores.addEventListener("click", function() {
+        localStorage.clear();
+        var ol = document.getElementById("highscores");
+        ol.innerHTML = "";
+    });
 };
