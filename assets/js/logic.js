@@ -56,7 +56,8 @@ function enterInitials() {
 
     // create new scoreInitials object
     var scoreInitials = {
-        score: timeLeft + 1,
+        // Math.max to make sure score is always greater than or equal to 0
+        score: Math.max(timeLeft + 1, 0),
         initials: initialsInput.value
     };
 
@@ -129,7 +130,8 @@ function checkAnswer(event) {
         clearInterval(timerInterval);
 
         // store timeLeft in score
-        score.innerText = timeLeft + 1;
+        // Math.max to make sure score is always greater than or equal to 0
+        score.innerText = Math.max(timeLeft + 1, 0);
 
         // add class to questionScreen to hide it
         questionScreen.classList.add("hide");
