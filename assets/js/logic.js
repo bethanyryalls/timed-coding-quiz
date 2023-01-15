@@ -31,6 +31,9 @@ var timeLeft = 40;
 
 var timerInterval;
 
+// set variable for highScores
+var highScores = [];
+
 // function to start timer
 function startTimer() {
     timerInterval = setInterval(function () {
@@ -51,30 +54,20 @@ function startTimer() {
 // Function to add initials and score to highscore
 function enterInitials() {
 
+    // create new scoreInitials object
     var scoreInitials = {
         score: timeLeft + 1,
         initials: initialsInput.value
     };
 
-    localStorage.setItem("scoreInitials", JSON.stringify(scoreInitials));
+    // adding uniqueKey so that localStorage data isn't overidden
+    var uniqueKey = Date.now();
 
+    // Store highScores array in local storage with unique key
+    localStorage.setItem(uniqueKey, JSON.stringify(scoreInitials));
+
+    // Redirect to highscores page
     window.location.href = "highscores.html";
-    
-        // // get value from input box
-        // var scoreInitials = {
-        //     score: JSON.stringify(score.value),
-        //     initials: initialsInput.value
-        // };
-
-        // localStorage.setItem("scoreInitials", JSON.stringify(scoreInitials));
-        
-        // var lastScoreInitials = JSON.parse(localStorage.getItem("scoreInitials"));
-
-        // console.log(lastScoreInitials);
-        
-    
-        
-    
 }
 
 function showQuestion() {
