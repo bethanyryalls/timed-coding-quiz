@@ -34,6 +34,32 @@ var timerInterval;
 // set variable for highScores
 var highScores = [];
 
+// when start quiz button clicked, run startQuiz function
+startQuizBtn.addEventListener("click", startQuiz);
+
+// function to start the quiz
+function startQuiz() {
+
+    // // if startScreen is showing, hide it
+    if (startScreen.style.display === "none") {
+        startScreen.style.display = "block";
+    } else {
+        startScreen.style.display = "none";
+    }
+    // run showQuestions function and show the questions div
+    showQuestionScreen();
+    // run startTimer function
+    startTimer();
+
+};
+
+// function which removes 'hide' class and shows the questions screen
+function showQuestionScreen() {
+    questionScreen.classList.remove("hide");
+    // startNextQuestion();
+    showQuestion();
+};
+
 // function to start timer
 function startTimer() {
     timerInterval = setInterval(function () {
@@ -49,49 +75,7 @@ function startTimer() {
         }
         // setting countdown interval to 1s
     }, 1000);
-}
-
-// Function to add initials and score to highscore
-function enterInitials() {
-
-    // if user enters more than 3 characters for initials
-    if (initialsInput.value.length > 3) {
-        alert("You must only enter a maximum of 3 initials");
-        // clear the input field
-        initialsInput.value = "";
-    } else {
-    // create new scoreInitials object
-    var scoreInitials = {
-        // Math.max to make sure score is always greater than or equal to 0
-        score: Math.max(timeLeft + 1, 0),
-        initials: initialsInput.value
-    };
-
-    // adding uniqueKey so that localStorage data isn't overidden
-    var uniqueKey = Date.now();
-
-    // Store highScores array in local storage with unique key
-    localStorage.setItem(uniqueKey, JSON.stringify(scoreInitials));
-
-    // Redirect to highscores page
-    window.location.href = "highscores.html";
-}
-}
-
-// function to stop quiz
-function stopQuiz() {
-     // clear countdown
-     clearInterval(timerInterval);
-
-     // store score in score text
-     // Math.max to make sure score is always greater than or equal to 0
-     score.innerText = Math.max(timeLeft + 1, 0);
-
-     // add class to questionScreen to hide it
-     questionScreen.classList.add("hide");
-     // remove hide class so endScreen shows
-     endScreen.classList.remove("hide");
-}
+};
 
 function showQuestion() {
     // Adding question text to questionTitle based on current question index
@@ -113,7 +97,8 @@ function showQuestion() {
         // listen for click of each button, run checkAnswer function
         answerBtn.addEventListener("click", checkAnswer);
     }
-}
+};
+
 
 // Function to check users answer and move on to next question
 function checkAnswer(event) {
@@ -152,34 +137,48 @@ function checkAnswer(event) {
     }
     // when submit button clicked, run enterInitials function
 submitBtn.addEventListener("click", enterInitials);
-}
+};
 
 
+// function to stop quiz
+function stopQuiz() {
+    // clear countdown
+    clearInterval(timerInterval);
 
-// function which removes 'hide' class and shows the questions screen
-function showQuestionScreen() {
-    questionScreen.classList.remove("hide");
-    // startNextQuestion();
-    showQuestion();
-}
+    // store score in score text
+    // Math.max to make sure score is always greater than or equal to 0
+    score.innerText = Math.max(timeLeft + 1, 0);
 
-// function to start the quiz
-function startQuiz() {
+    // add class to questionScreen to hide it
+    questionScreen.classList.add("hide");
+    // remove hide class so endScreen shows
+    endScreen.classList.remove("hide");
+};
 
-    // // if startScreen is showing, hide it
-    if (startScreen.style.display === "none") {
-        startScreen.style.display = "block";
+
+// Function to add initials and score to highscore
+function enterInitials() {
+
+    // if user enters more than 3 characters for initials
+    if (initialsInput.value.length > 3) {
+        alert("You must only enter a maximum of 3 initials");
+        // clear the input field
+        initialsInput.value = "";
     } else {
-        startScreen.style.display = "none";
-    }
+    // create new scoreInitials object
+    var scoreInitials = {
+        // Math.max to make sure score is always greater than or equal to 0
+        score: Math.max(timeLeft + 1, 0),
+        initials: initialsInput.value
+    };
 
+    // adding uniqueKey so that localStorage data isn't overidden
+    var uniqueKey = Date.now();
 
-    // run showQuestions function and show the questions div
-    showQuestionScreen();
-    // run startTimer function
-    startTimer();
+    // Store highScores array in local storage with unique key
+    localStorage.setItem(uniqueKey, JSON.stringify(scoreInitials));
 
+    // Redirect to highscores page
+    window.location.href = "highscores.html";
 }
-
-// when start quiz button clicked, run startQuiz function
-startQuizBtn.addEventListener("click", startQuiz);
+};
