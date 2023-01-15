@@ -45,7 +45,7 @@ function startTimer() {
         timeLeft--;
         // if score is less than 0 or all questions answered, time is up
         if (timeLeft < 0 || currentQuestionIndex === quizQuestions.length) {
-            clearInterval(timerInterval);
+            stopQuiz();
         }
         // setting countdown interval to 1s
     }, 1000);
@@ -54,6 +54,12 @@ function startTimer() {
 // Function to add initials and score to highscore
 function enterInitials() {
 
+    // if user enters more than 3 characters for initials
+    if (initialsInput.value.length > 3) {
+        alert("You must only enter a maximum of 3 initials");
+        // clear the input field
+        initialsInput.value = "";
+    } else {
     // create new scoreInitials object
     var scoreInitials = {
         // Math.max to make sure score is always greater than or equal to 0
@@ -69,6 +75,22 @@ function enterInitials() {
 
     // Redirect to highscores page
     window.location.href = "highscores.html";
+}
+}
+
+// function to stop quiz
+function stopQuiz() {
+     // clear countdown
+     clearInterval(timerInterval);
+
+     // store score in score text
+     // Math.max to make sure score is always greater than or equal to 0
+     score.innerText = Math.max(timeLeft + 1, 0);
+
+     // add class to questionScreen to hide it
+     questionScreen.classList.add("hide");
+     // remove hide class so endScreen shows
+     endScreen.classList.remove("hide");
 }
 
 function showQuestion() {
@@ -126,18 +148,9 @@ function checkAnswer(event) {
     if (currentQuestionIndex < quizQuestions.length) {
         showQuestion();
     } else {
-        // clear countdown
-        clearInterval(timerInterval);
-
-        // store timeLeft in score
-        // Math.max to make sure score is always greater than or equal to 0
-        score.innerText = Math.max(timeLeft + 1, 0);
-
-        // add class to questionScreen to hide it
-        questionScreen.classList.add("hide");
-        // remove hide class so endScreen shows
-        endScreen.classList.remove("hide");
+        stopQuiz();
     }
+    // when submit button clicked, run enterInitials function
 submitBtn.addEventListener("click", enterInitials);
 }
 
