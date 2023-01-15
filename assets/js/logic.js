@@ -9,9 +9,26 @@ var questionScreen = document.getElementById("questions");
 var questionTitle = document.getElementById('question-title');
 // setting variable for choices div
 var questionChoices = document.getElementById('choices');
+// setting variable for time
+var timer = document.getElementById('time');
 
 // setting current question to 0
 var currentQuestionIndex = 0;
+
+// setting start time to 40s
+var timeLeft = 40;
+
+// function to start timer
+function startTimer() {
+    var timerInterval = setInterval(function() {
+        timer.innerText = timeLeft;
+        timeLeft--;
+        if (timeLeft < 0) {
+            clearInterval(timerInterval);
+            alert("Time's up!");
+        }
+    }, 1000);
+}
 
 function showQuestion() {
     // Adding question text to questionTitle based on current question index
@@ -21,12 +38,6 @@ function showQuestion() {
 
     // Setting variable for answer length
     var answersLength = quizQuestions[currentQuestionIndex].answers.length;
-
-    // // creating an ordered list element
-    // var ol = document.createElement("ol");
-
-    // // Adding ordered list to the choices div
-    // questionChoices.appendChild(ol);
 
     for (i = 0; i < answersLength; i++) {
 
@@ -56,6 +67,7 @@ function checkAnswer(event) {
         alert("Correct");
     } else {
         alert("Incorrect. The correct answer is " + correctAnswer);
+        timeLeft -= 10;
     }
 
     // adding 1 to current question index so it can go through each of the questions
@@ -68,13 +80,6 @@ function checkAnswer(event) {
         alert("You've completed the quiz!");
     }
 }
-
-// // Add event listener to the answer choices that call the 'checkAnswer' function when clicked
-// var answerChoices = document.querySelectorAll("li");
-
-// for (i = 0; i < answerChoices.length; i++) {
-//     answerChoices[i].addEventListener("click", checkAnswer);
-// }
 
 // function which removes 'hide' class and shows the questions screen
 function showQuestionScreen() {
@@ -94,8 +99,11 @@ function startQuiz() {
         startScreen.style.display = "none";
     }
 
+    
     // run showQuestions function and show the questions div
     showQuestionScreen();
+    // run startTimer function
+    startTimer();
 
 }
 
