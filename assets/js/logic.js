@@ -22,30 +22,31 @@ function showQuestion() {
     // Setting variable for answer length
     var answersLength = quizQuestions[currentQuestionIndex].answers.length;
 
-    // creating an ordered list element
-    var ol = document.createElement("ol");
+    // // creating an ordered list element
+    // var ol = document.createElement("ol");
 
-    // Adding ordered list to the choices div
-    questionChoices.appendChild(ol);
-    
+    // // Adding ordered list to the choices div
+    // questionChoices.appendChild(ol);
+
     for (i = 0; i < answersLength; i++) {
-            
-         // For every answer in question, add a list element
-            var li = document.createElement("li");
-            // Set the text to the answer using index
-            li.textContent = quizQuestions[currentQuestionIndex].answers[i];
-            // add li to ol element
-            ol.appendChild(li);
-            // listen for click of li and run checkAnswer function
-            li.addEventListener("click", checkAnswer);
-}
+
+        // create a button element for each answer
+        var answerBtn = document.createElement("button");
+        // add each answer text to button with numbered prefix
+        answerBtn.textContent = (i + 1) + ". " + quizQuestions[currentQuestionIndex].answers[i];
+        // add buttons to choices div
+        questionChoices.appendChild(answerBtn);
+        // listen for click of each button, run checkAnswer function
+        answerBtn.addEventListener("click", checkAnswer);
+    }
 }
 
 // Function to check users answer and move on to next question
 function checkAnswer(event) {
 
     // Setting variable for selected answer to whatever the user clicked
-    var selectedAnswer = event.target.innerText;
+    // slice(3) is removing the numbered prefix
+    var selectedAnswer = event.target.innerText.slice(3);
 
     // assigning correctAnswer to the correct answer for that question
     var correctAnswer = quizQuestions[currentQuestionIndex].correctAnswer;
@@ -68,12 +69,12 @@ function checkAnswer(event) {
     }
 }
 
-// Add event listener to the answer choices that call the 'checkAnswer' function when clicked
-var answerChoices = document.querySelectorAll("li");
+// // Add event listener to the answer choices that call the 'checkAnswer' function when clicked
+// var answerChoices = document.querySelectorAll("li");
 
-for (i = 0; i < answerChoices.length; i++) {
-    answerChoices[i].addEventListener("click", checkAnswer);
-}
+// for (i = 0; i < answerChoices.length; i++) {
+//     answerChoices[i].addEventListener("click", checkAnswer);
+// }
 
 // function which removes 'hide' class and shows the questions screen
 function showQuestionScreen() {
@@ -95,7 +96,7 @@ function startQuiz() {
 
     // run showQuestions function and show the questions div
     showQuestionScreen();
-    
+
 }
 
 // when start quiz button clicked, run startQuiz function
