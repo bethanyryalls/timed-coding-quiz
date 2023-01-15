@@ -10,26 +10,38 @@ var questionTitle = document.getElementById('question-title');
 // setting variable for choices div
 var questionChoices = document.getElementById('choices');
 
-var currentQuestionIndex;
+var currentQuestionIndex = 0;
 
 
 // function to show the next question
-function startNextQuestion() {
-    showQuestion(currentQuestionIndex);
+// function startNextQuestion() {
+//     showQuestion();
 
-}
+// }
 
 function showQuestion() {
-    for (i = 0; i < )
-    questionTitle.innerText = quizQuestions[0].question;
-    questionChoices.innerText = quizQuestions[0].answers['a'];
+    questionTitle.innerText = quizQuestions[currentQuestionIndex].question;
+
+    var answersLength = quizQuestions[currentQuestionIndex].answers.length;
+    var ol = document.createElement("ol");
+    questionChoices.appendChild(ol);
+
+    for (i = 0; i < answersLength; i++) {
+            
+            var li = document.createElement("li");
+            li.textContent = quizQuestions[currentQuestionIndex].answers[i];
+            ol.appendChild(li);
+            li.addEventListener("click", checkAnswer);
 }
+}
+
 
 // function which removes 'hide' class and shows the questions screen
 function showQuestionScreen() {
     questionScreen.classList.remove("hide");
     currentQuestionIndex = 0;
-    startNextQuestion();
+    // startNextQuestion();
+    showQuestion();
 }
 
 // function to start the quiz
