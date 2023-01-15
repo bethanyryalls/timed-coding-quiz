@@ -23,7 +23,7 @@ To visit the website, [please click this link.](https://bethanyryalls.github.io/
 ## Installation/Usage
 
 ### Screenshot
-The following screenshot shows an example of the prompts and the final generated password
+The following screenshot shows the quiz, how questions are displayed, how to save your score and viewing the highscores.
     ![Coding Quiz Challenge by Bethany Ryalls](/assets/images/coding-quiz-challenge-screenshot.png)
     ![Coding Quiz Question](/assets/images/coding-quiz-question-screenshot.png)
     ![Coding Quiz - Save Score](/assets/images/input-initials-screenshot.png)
