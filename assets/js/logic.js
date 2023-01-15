@@ -136,7 +136,7 @@ function checkAnswer(event) {
         stopQuiz();
     }
     // when submit button clicked, run enterInitials function
-submitBtn.addEventListener("click", enterInitials);
+    submitBtn.addEventListener("click", enterInitials);
 };
 
 
@@ -165,20 +165,20 @@ function enterInitials() {
         // clear the input field
         initialsInput.value = "";
     } else {
-    // create new scoreInitials object
-    var scoreInitials = {
-        // Math.max to make sure score is always greater than or equal to 0
-        score: Math.max(timeLeft + 1, 0),
-        initials: initialsInput.value
-    };
+        // create new scoreInitials object
+        var scoreInitials = {
+            // Math.max to make sure score is always greater than or equal to 0
+            score: Math.max(timeLeft + 1, 0),
+            initials: initialsInput.value
+        };
 
-    // adding uniqueKey so that localStorage data isn't overidden
-    var uniqueKey = Date.now();
+        // adding uniqueKey so that localStorage data isn't overidden
+        var uniqueKey = Date.now();
 
-    // Store highScores array in local storage with unique key
-    localStorage.setItem(uniqueKey, JSON.stringify(scoreInitials));
+        // Store highScores array in local storage with unique key
+        localStorage.setItem(uniqueKey, JSON.stringify(scoreInitials));
 
-    // Redirect to highscores page
-    window.location.href = "highscores.html";
-}
+        // Redirect to highscores page
+        window.location.href = "highscores.html";
+    }
 };
