@@ -17,6 +17,11 @@ var feedback = document.getElementById('feedback');
 var score = document.getElementById('final-score');
 // setting variable for end-screen
 var endScreen = document.getElementById('end-screen');
+// setting variable for initials input box
+initialsInput = document.getElementById('initials');
+// setting variable for submit button
+submitBtn = document.getElementById('submit');
+
 
 // setting current question to 0
 var currentQuestionIndex = 0;
@@ -24,22 +29,52 @@ var currentQuestionIndex = 0;
 // setting start time to 40s
 var timeLeft = 40;
 
+var timerInterval;
+
 // function to start timer
 function startTimer() {
-    var timerInterval = setInterval(function() {
+    timerInterval = setInterval(function () {
         // set timer text to timeLeft
         timer.innerText = timeLeft;
         // set final-score text to timeleft
         score.innerText = timeLeft;
         // make timeleft go down each second
         timeLeft--;
-        // if score is less than 0, time is up
-        if (timeLeft < 0) {
+        // if score is less than 0 or all questions answered, time is up
+        if (timeLeft < 0 || currentQuestionIndex === quizQuestions.length) {
             clearInterval(timerInterval);
-            alert("Time's up!");
         }
         // setting countdown interval to 1s
     }, 1000);
+}
+
+// Function to add initials and score to highscore
+function enterInitials() {
+
+    var scoreInitials = {
+        score: timeLeft + 1,
+        initials: initialsInput.value
+    };
+
+    localStorage.setItem("scoreInitials", JSON.stringify(scoreInitials));
+
+    window.location.href = "highscores.html";
+    
+        // // get value from input box
+        // var scoreInitials = {
+        //     score: JSON.stringify(score.value),
+        //     initials: initialsInput.value
+        // };
+
+        // localStorage.setItem("scoreInitials", JSON.stringify(scoreInitials));
+        
+        // var lastScoreInitials = JSON.parse(localStorage.getItem("scoreInitials"));
+
+        // console.log(lastScoreInitials);
+        
+    
+        
+    
 }
 
 function showQuestion() {
@@ -97,16 +132,21 @@ function checkAnswer(event) {
     if (currentQuestionIndex < quizQuestions.length) {
         showQuestion();
     } else {
-        // create a new element to hold the score
-        score.innerText = timeLeft;
+        // clear countdown
+        clearInterval(timerInterval);
 
-    // add class to questionScreen to hide it
-    questionScreen.classList.add("hide");
+        // store timeLeft in score
+        score.innerText = timeLeft + 1;
+
+        // add class to questionScreen to hide it
+        questionScreen.classList.add("hide");
         // remove hide class so endScreen shows
         endScreen.classList.remove("hide");
-        alert("You've completed the quiz!");
     }
+submitBtn.addEventListener("click", enterInitials);
 }
+
+
 
 // function which removes 'hide' class and shows the questions screen
 function showQuestionScreen() {
@@ -117,7 +157,6 @@ function showQuestionScreen() {
 
 // function to start the quiz
 function startQuiz() {
-    alert("You've started the quiz");
 
     // // if startScreen is showing, hide it
     if (startScreen.style.display === "none") {
@@ -126,7 +165,7 @@ function startQuiz() {
         startScreen.style.display = "none";
     }
 
-    
+
     // run showQuestions function and show the questions div
     showQuestionScreen();
     // run startTimer function
