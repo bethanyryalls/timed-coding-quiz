@@ -11,6 +11,8 @@ var questionTitle = document.getElementById('question-title');
 var questionChoices = document.getElementById('choices');
 // setting variable for time
 var timer = document.getElementById('time');
+// setting variable for feedback div
+var feedback = document.getElementById('feedback');
 
 // setting current question to 0
 var currentQuestionIndex = 0;
@@ -64,9 +66,17 @@ function checkAnswer(event) {
 
     // Checking to see if user has correct answer
     if (selectedAnswer === correctAnswer) {
-        alert("Correct");
+        // if not the first question, unhide feedback div
+        if (currentQuestionIndex <= 1) {
+            feedback.classList.remove("hide");
+        }
+        // display correct in feedback
+        feedback.textContent = "Correct!"
     } else {
-        alert("Incorrect. The correct answer is " + correctAnswer);
+        if (currentQuestionIndex <= 1) {
+            feedback.classList.remove("hide");
+        }
+        feedback.textContent = "Wrong!"
         timeLeft -= 10;
     }
 
@@ -104,6 +114,8 @@ function startQuiz() {
     showQuestionScreen();
     // run startTimer function
     startTimer();
+    // run feedbackControl function
+    feedbackControl();
 
 }
 
