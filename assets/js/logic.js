@@ -13,6 +13,10 @@ var questionChoices = document.getElementById('choices');
 var timer = document.getElementById('time');
 // setting variable for feedback div
 var feedback = document.getElementById('feedback');
+// setting variable for final-score
+var score = document.getElementById('final-score');
+// setting variable for end-screen
+var endScreen = document.getElementById('end-screen');
 
 // setting current question to 0
 var currentQuestionIndex = 0;
@@ -23,12 +27,18 @@ var timeLeft = 40;
 // function to start timer
 function startTimer() {
     var timerInterval = setInterval(function() {
+        // set timer text to timeLeft
         timer.innerText = timeLeft;
+        // set final-score text to timeleft
+        score.innerText = timeLeft;
+        // make timeleft go down each second
         timeLeft--;
+        // if score is less than 0, time is up
         if (timeLeft < 0) {
             clearInterval(timerInterval);
             alert("Time's up!");
         }
+        // setting countdown interval to 1s
     }, 1000);
 }
 
@@ -87,6 +97,13 @@ function checkAnswer(event) {
     if (currentQuestionIndex < quizQuestions.length) {
         showQuestion();
     } else {
+        // create a new element to hold the score
+        score.innerText = timeLeft;
+
+    // add class to questionScreen to hide it
+    questionScreen.classList.add("hide");
+        // remove hide class so endScreen shows
+        endScreen.classList.remove("hide");
         alert("You've completed the quiz!");
     }
 }
@@ -114,8 +131,6 @@ function startQuiz() {
     showQuestionScreen();
     // run startTimer function
     startTimer();
-    // run feedbackControl function
-    feedbackControl();
 
 }
 
